@@ -1,0 +1,239 @@
+/* GENERAL */
+body{
+    margin:0;
+    font-family:Inter, sans-serif;
+    background:#c9ccd1;
+    color:#0d0d0f;
+    overflow-x:hidden;
+}
+
+/* NOISE LAYER */
+.noise{
+    position:fixed;
+    top:0; left:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+    background:url("noise.png");
+    opacity:0.27;
+    mix-blend-mode:soft-light;
+    z-index:10;
+}
+
+/* CORNERS DECORATION */
+.corner{
+    position:fixed;
+    width:260px;
+    opacity:0.3;
+    filter:grayscale(100%) contrast(120%);
+    pointer-events:none;
+    z-index:5;
+}
+.corner-tl{ top:0; left:0; }
+.corner-tr{ top:0; right:0; transform:scaleX(-1); }
+.corner-bl{ bottom:0; left:0; transform:scaleY(-1); }
+.corner-br{ bottom:0; right:0; transform:scale(-1,-1); }
+
+/* NAV */
+.nav{
+    position:sticky;
+    top:0;
+    padding:20px 50px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    backdrop-filter:blur(6px);
+    background:rgba(255,255,255,0.15);
+    z-index:20;
+}
+
+.logo{
+    font-family:'Playfair Display', serif;
+    font-size:42px;
+    letter-spacing:4px;
+    color:#0d0d0f;
+    filter:drop-shadow(0 0 6px rgba(80,80, 120,0.5));
+}
+
+/* CART BUTTON */
+.cart-btn{
+    background:rgba(0,0,0,0.8);
+    color:white;
+    padding:10px 18px;
+    font-size:18px;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    backdrop-filter:blur(3px);
+}
+.cart-icon{
+    width:24px;
+    filter:invert(1);
+}
+
+/* HERO */
+.hero{
+    text-align:center;
+    padding:140px 20px 100px;
+}
+
+.hero-title{
+    font-family:'Playfair Display', serif;
+    font-size:68px;
+    letter-spacing:3px;
+    color:#0b0b0d;
+    text-shadow:0 0 14px rgba(90,80,180,0.45);
+}
+
+.hero-sub{
+    font-size:18px;
+    opacity:0.7;
+    margin-top:12px;
+}
+
+.hero-btn{
+    margin-top:30px;
+    padding:12px 26px;
+    background:#0d0d0f;
+    color:white;
+    border:none;
+    cursor:pointer;
+    border-radius:6px;
+    transition:0.3s;
+}
+.hero-btn:hover{
+    background:#556d8d;
+}
+
+/* PRODUCTS */
+.products{
+    display:flex;
+    justify-content:center;
+    gap:40px;
+    padding:60px 40px;
+    flex-wrap:wrap;
+}
+
+.product{
+    position:relative;
+    width:250px;
+    padding:20px;
+    background:rgba(255,255,255,0.5);
+    border-radius:12px;
+    backdrop-filter:blur(6px);
+    border:1px solid rgba(0,0,0,0.15);
+    box-shadow:0 0 20px rgba(0,0,0,0.1);
+}
+
+.halo{
+    position:absolute;
+    top:-20px;
+    left:50%;
+    transform:translateX(-50%);
+    width:120px;
+    height:120px;
+    background:radial-gradient(circle, rgba(170,150,255,0.8), transparent 70%);
+    filter:blur(20px);
+    opacity:0;
+    transition:0.3s;
+}
+.product:hover .halo{
+    opacity:1;
+}
+
+.product-img{
+    width:100%;
+    border-radius:8px;
+    filter:contrast(125%) grayscale(20%);
+}
+
+.p-name{
+    font-family:'Playfair Display';
+    font-size:20px;
+    margin-top:10px;
+}
+
+.p-price{
+    margin:5px 0 10px;
+}
+
+.p-btn{
+    padding:10px 18px;
+    background:#0d0d0f;
+    color:white;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+/* CART */
+.offcanvas{
+    position:fixed;
+    right:0;
+    top:0;
+    height:100vh;
+    width:460px;
+    transform:translateX(110%);
+    background:
+      url("carrito-fondo.png") center/65% no-repeat,
+      linear-gradient(180deg, #d1d4d8, #adb0b3);
+    background-blend-mode:multiply;
+    padding:30px;
+    backdrop-filter:blur(8px);
+    border-left:2px solid rgba(0,0,0,0.12);
+    transition:transform 400ms ease;
+    z-index:50;
+}
+
+.offcanvas.open{
+    transform:translateX(0%);
+}
+
+.cart-orn{
+    width:180px;
+    display:block;
+    margin:0 auto;
+    opacity:0.5;
+}
+
+.cart-title{
+    font-family: 'Playfair Display';
+    font-size:32px;
+    text-align:center;
+    margin:20px 0;
+}
+
+.cart-item{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin:12px 0;
+}
+
+.cart-item-img{
+    width:60px;
+    height:60px;
+    border-radius:8px;
+    object-fit:cover;
+    filter:grayscale(25%) contrast(120%);
+}
+
+.total-text{
+    font-size:20px;
+    font-weight:600;
+    margin-top:20px;
+}
+
+.checkout-btn{
+    width:100%;
+    margin-top:20px;
+    padding:12px;
+    background:#0d0d0f;
+    color:white;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+}
