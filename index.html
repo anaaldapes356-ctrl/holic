@@ -659,7 +659,14 @@ Trabajamos desde lo conceptual hasta lo tangible: desde el logotipo y la narrati
       <div class="small-muted">✦ ✧ ❖</div>
     </div>
   </footer>
-
+<audio id="bg-music" autoplay loop>
+  <source src="musica.mp3" type="audio/mpeg">
+</audio>
+<script>
+window.addEventListener("click", () => {
+  const music = document.getElementById("bg-music");
+  music.play().catch(() => {});
+}, { once: true });</script>
   <!-- SCRIPTS -->
   <script>
   /* =====================
@@ -948,6 +955,15 @@ Trabajamos desde lo conceptual hasta lo tangible: desde el logotipo y la narrati
       if(el){ ev.preventDefault(); el.scrollIntoView({behavior:'smooth', block:'start'}); }
     });
   });
+<audio id=“bg-music” autoplay loop>
+<source src="Debussy - Clair de Lune.mp3” type="audio/mpeg”
+</audio>
   </script>
 </body>
 </html>
+
+
+
+
+
+
