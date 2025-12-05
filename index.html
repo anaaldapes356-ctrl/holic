@@ -1,0 +1,969 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>H0LIC — Dark Angel Industrial (1800AD)</title>
+  <meta name="description" content="H0LIC - Dark Angel Couture con estética Industrial Victoriana 1800AD. Branding, fotografía y merch." />
+  <!-- Fonts (Inter + Playfair Display) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+  /* =========================
+     ROOT / RESET / BASE
+     ========================= */
+  :root{
+    --iron-1: #e3e3e1;       /* parchment-ish for accents */
+    --iron-2: #cfcfcf;       /* light grey paper */
+    --grey-ambient: #9b9b9e; /* mid grey */
+    --iron-dark: #4b4b50;    /* industrial grey */
+    --charcoal: #0d0e10;     /* deep black */
+    --blue-steel: #7ea4c9;   /* cold blue accent */
+    --blue-ice: #aac7e8;     /* lighter halo */
+    --muted: #bfb9bf;
+    --paper: #efece8;
+    --accent: #8faed0;
+    --accent-2: #6a8fb8;
+    --glass: rgba(255,255,255,0.03);
+    --card: rgba(10,10,12,0.76);
+    --halo: rgba(122,160,200,0.12);
+    --radius: 12px;
+    --maxw: 1180px;
+    --ease: cubic-bezier(.2,.9,.3,1);
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+    color:var(--iron-1);
+    background:
+      linear-gradient(180deg, #e9e9e8 0%, #dcdcdc 6%, #bfbfc1 20%, #9d9fa3 45%, #7a7c80 70%, #4b4b50 100%);
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    line-height:1.5;
+    overflow-y:scroll;
+    background-attachment: fixed;
+  }
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .container{width:92%;max-width:var(--maxw);margin:0 auto;padding:0 10px}
+
+  /* Subtle paper/metal texture overlay (light) */
+  body::before{
+    content:"";
+    pointer-events:none;
+    position:fixed; inset:0;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="140" height="140"><filter id="t"><feTurbulence baseFrequency="0.6" numOctaves="1"/></filter><rect width="100%" height="100%" filter="url(%23t)" opacity="0.02" fill="black"/></svg>');
+    mix-blend-mode:multiply;
+    opacity:0.9;
+  }
+
+  /* =========================
+     CORNER ORNAMENTS (SVG inline styled)
+     ========================= */
+  .corner {
+    position:fixed;
+    width:230px;
+    height:230px;
+    opacity:0.62;
+    pointer-events:none;
+    z-index:2;
+    filter: drop-shadow(0 12px 28px rgba(0,0,0,0.25)) grayscale(20%) contrast(120%);
+    transform: translateZ(0);
+  }
+  .corner-tl { top:12px; left:12px; transform: rotate(0deg) scale(0.92); opacity:0.6; }
+  .corner-tr { top:12px; right:12px; transform: rotateY(180deg) scale(0.92); opacity:0.58; }
+  .corner-bl { bottom:12px; left:12px; transform: rotateX(180deg) scale(0.92); opacity:0.56; }
+  .corner-br { bottom:12px; right:12px; transform: rotate(180deg) scale(0.92); opacity:0.54; }
+
+  /* Slight animation for life */
+  @keyframes floatCorner {
+    0% { transform: translateY(0) scale(0.92); }
+    50% { transform: translateY(-6px) scale(0.94); }
+    100% { transform: translateY(0) scale(0.92); }
+  }
+  .corner { animation: floatCorner 6s ease-in-out infinite; }
+
+  /* =========================
+     HEADER / NAV
+     ========================= */
+  header{
+    position:sticky; top:0; z-index:60;
+    padding:14px 0;
+    background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(10,10,12,0.04));
+    border-bottom:1px solid rgba(0,0,0,0.06);
+    backdrop-filter: blur(5px);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .brand{display:flex;gap:12px;align-items:center}
+  .logo{
+    width:52px;height:52px;border-radius:10px;display:grid;place-items:center;
+    background: linear-gradient(135deg,#dfe7eb, #aeb8c0);
+    color:var(--charcoal); font-family:"Playfair Display",serif; font-weight:700; box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+    border:1px solid rgba(0,0,0,0.06);
+  }
+  .brand h1{font-size:16px;margin:0;color:var(--charcoal)}
+  .brand p{margin:0;font-size:12px;color:var(--iron-dark)}
+  nav ul{display:flex;gap:18px;list-style:none;margin:0;padding:0;align-items:center}
+  nav a{font-weight:600;font-size:14px;color:var(--charcoal)}
+  .cta{padding:8px 14px;border-radius:10px;background:linear-gradient(90deg,var(--blue-steel),var(--accent-2));color:white;font-weight:700;box-shadow:0 8px 28px rgba(106,140,170,0.12)}
+
+  /* =========================
+     HERO
+     ========================= */
+  .hero{display:flex;gap:34px;align-items:center;padding:64px 0;min-height:72vh}
+  .hero-left{flex:1}
+  .eyebrow{display:inline-block;padding:8px 12px;border-radius:999px;color:var(--iron-dark);font-size:13px;border:1px solid rgba(0,0,0,0.06);background:linear-gradient(180deg, rgba(255,255,255,0.35), rgba(255,255,255,0.12))}
+  .kicker{font-family:"Playfair Display",serif;font-size:48px;margin:12px 0;color:var(--charcoal); text-shadow: 0 8px 20px rgba(0,0,0,0.08)}
+  .lead{color:var(--iron-dark);max-width:62ch;font-size:17px}
+  .actions{display:flex;gap:12px;margin-top:20px}
+
+  .hero-right{flex:1;display:grid;place-items:center;position:relative}
+  .altar{
+    width:480px;height:480px;border-radius:16px;position:relative;
+    background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(0,0,0,0.04));
+    border:1px solid rgba(0,0,0,0.06);
+    box-shadow: 0 40px 100px rgba(0,0,0,0.28);
+    overflow:hidden; display:grid; place-items:center;
+  }
+  .altar .plate{
+    width:78%;height:78%;border-radius:12px;background: linear-gradient(180deg,#f6f6f6 0%, #e9e9e7 100%);
+    display:grid;place-items:center;font-family:"Playfair Display";font-size:22px;color:var(--charcoal);transform:rotate(-5deg);border:1px solid rgba(0,0,0,0.04);
+  }
+  /* metallic filigree overlay */
+  .altar::after{
+    content:""; position:absolute; inset:0; background-image:
+      linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02)),
+      url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800"><g fill="none" stroke="%238f9faa" stroke-opacity="0.06"><path d="M50 200 C 150 80, 650 80, 750 200" stroke-width="2"/><path d="M50 600 C 150 720, 650 720, 750 600" stroke-width="2"/></g></svg>');
+    mix-blend-mode:multiply; pointer-events:none;
+  }
+
+  /* halo ring when active */
+  .halo-ring {
+    position:absolute; inset:-20% -20%; pointer-events:none; opacity:0; transition:opacity 360ms;
+    background: radial-gradient(circle at 30% 30%, var(--blue-ice), transparent 20%), radial-gradient(circle at 70% 70%, var(--blue-steel), transparent 30%);
+    filter: blur(28px); mix-blend-mode:screen;
+  }
+  .altar.halo .halo-ring { opacity:1; animation: haloPulse 2200ms infinite ease-in-out; }
+  @keyframes haloPulse { 0%{transform:scale(0.98)}50%{transform:scale(1.02)}100%{transform:scale(0.98)} }
+
+  /* =========================
+     SECTIONS & CARDS
+     ========================= */
+  section{padding:48px 0}
+  h2{font-family:"Playfair Display",serif;font-size:22px;margin:0;color:var(--charcoal)}
+  p.lead-muted{color:var(--iron-dark);margin-top:6px}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px}
+  .card{background:linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.48));border-radius:12px;padding:18px;border:1px solid rgba(0,0,0,0.06);box-shadow: 0 8px 30px rgba(0,0,0,0.06)}
+  .card h3{margin:0 0 8px;color:var(--charcoal)}
+  .card p{margin:0;color:var(--iron-dark)}
+
+  /* portfolio */
+  .portfolio-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+  .project{height:240px;border-radius:12px;overflow:hidden;position:relative;cursor:pointer;border:1px solid rgba(0,0,0,0.06);background:linear-gradient(135deg, rgba(160,160,162,0.06), rgba(110,110,112,0.02)); box-shadow:0 10px 30px rgba(0,0,0,0.06)}
+  .project .meta{position:absolute;left:12px;bottom:12px;z-index:5;font-weight:700;color:var(--charcoal)}
+
+  /* shop */
+  .shop-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:18px}
+  .product{background:linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.44));border-radius:12px;padding:14px;border:1px solid rgba(0,0,0,0.06);display:flex;flex-direction:column;gap:10px;min-height:230px;transition:transform 260ms var(--ease),box-shadow 260ms var(--ease)}
+  .product:hover{transform:translateY(-6px);box-shadow:0 30px 80px rgba(0,0,0,0.08)}
+  .thumb{height:170px;border-radius:10px;display:grid;place-items:center;font-family:"Playfair Display";font-size:18px;color:var(--charcoal);background:linear-gradient(135deg,var(--iron-2), #bfc2c5); border:1px solid rgba(0,0,0,0.04)}
+  .tagline{font-size:13px;color:var(--iron-dark)}
+
+  /* ornament label */
+  .ornament-label{display:inline-block;padding:6px 10px;border-radius:999px;border:1px solid rgba(0,0,0,0.06);background:linear-gradient(180deg, rgba(255,255,255,0.7), rgba(255,255,255,0.5));color:var(--charcoal);font-weight:700;font-size:12px;box-shadow:0 6px 18px rgba(0,0,0,0.05)}
+
+  /* =========================
+     CART OFFCANVAS (ENHANCED INDUSTRIAL)
+     ========================= */
+  .cart-btn{background:transparent;border:1px solid rgba(0,0,0,0.06);padding:8px 10px;border-radius:10px;cursor:pointer}
+  .cart-count{background:var(--blue-steel); color:white; font-weight:700; padding:2px 8px; border-radius:999px; font-size:13px; margin-left:8px}
+
+  .offcanvas{
+    position:fixed;
+    right:0;
+    top:0;
+    height:100vh;
+    width:520px;
+    background: linear-gradient(180deg, #d4d4d6, #b8b8bb); /* gris industrial */
+    box-shadow:-40px 0 120px rgba(0,0,0,0.12);
+    transform:translateX(110%);
+    transition:transform 420ms var(--ease);
+    z-index:130;
+    padding:26px;
+    border-left:1px solid rgba(0,0,0,0.06);
+}
+
+  .offcanvas.open{transform:translateX(0)}
+  .offcanvas::before{
+    content:""; position:absolute; left:-120px; top:-120px; width:560px; height:560px; border-radius:50%;
+    background: radial-gradient(circle at 30% 30%, var(--halo), transparent 20%), radial-gradient(circle at 70% 70%, rgba(106,140,170,0.06), transparent 25%); opacity:0; transition:opacity 360ms;
+    pointer-events:none;
+  }
+  .offcanvas.open::before{opacity:1}
+
+  .offcanvas h3{margin:0; color:var(--charcoal)}
+  .cart-list{display:flex;flex-direction:column;gap:12px;overflow:auto;max-height:60vh;padding-right:8px;margin-top:12px}
+  .cart-item{display:flex;gap:12px;align-items:center;padding:12px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.92), rgba(245,245,243,0.88));border:1px solid rgba(0,0,0,0.04)}
+  .mini{width:64px;height:64px;border-radius:10px;display:grid;place-items:center;font-weight:700;background:linear-gradient(135deg,var(--iron-2), #c9c9c9);box-shadow:0 10px 30px rgba(0,0,0,0.06); color:var(--charcoal)}
+  .item-info{flex:1;color:var(--charcoal)}
+  .qty{display:flex;gap:8px;align-items:center}
+  .qty button{background:transparent;border:1px solid rgba(0,0,0,0.06);color:var(--charcoal);padding:6px 10px;border-radius:8px;cursor:pointer}
+
+  .total-row{display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding-top:8px;border-top:1px dashed rgba(0,0,0,0.04)}
+  .checkout{padding:12px 14px;border-radius:12px;background:linear-gradient(90deg,var(--blue-steel),var(--accent-2));color:white;font-weight:800;border:0;cursor:pointer}
+
+  /* footer */
+  footer{padding:36px 0;border-top:1px solid rgba(0,0,0,0.04)}
+  .foot-grid{display:flex;gap:18px;justify-content:space-between;align-items:center;flex-wrap:wrap}
+  .small-muted{color:var(--iron-dark);font-size:13px}
+
+  /* modal */
+  .modal{
+    position:fixed; inset:0; display:none; align-items:center; justify-content:center; z-index:220;
+    background: rgba(10,10,10,0.5);
+  }
+  .modal.open{display:flex}
+  .modal-card{width:92%;max-width:920px;background:linear-gradient(180deg,#f7f6f4,#efede9);padding:20px;border-radius:12px;border:1px solid rgba(0,0,0,0.06)}
+  .modal-close{position:absolute; right:18px; top:18px; background:transparent; border:0; font-size:20px; cursor:pointer; color:var(--charcoal)}
+
+  /* responsive */
+  @media (max-width:980px){
+    .grid{grid-template-columns:repeat(2,1fr)}
+    .portfolio-grid{grid-template-columns:repeat(2,1fr)}
+    .shop-grid{grid-template-columns:repeat(2,1fr)}
+    .hero{flex-direction:column-reverse;text-align:center}
+    .corner{display:none}
+  }
+  @media (max-width:560px){
+    .shop-grid{grid-template-columns:1fr}
+    .grid{grid-template-columns:1fr}
+    .altar{width:320px;height:320px}
+  }
+
+  /* small util */
+  .muted{color:var(--iron-dark)}
+  .divider{height:1px;background:rgba(0,0,0,0.04);margin:12px 0;border-radius:6px}
+  /* ========= FONDO DECORATIVO PÁGINA ========= */
+.bg-deco {
+  position: fixed;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.18;
+  filter: grayscale(40%) contrast(120%);
+}
+
+.deco-1 {
+  top: 0;
+  left: 0;
+  width: 40vw;
+}
+
+.deco-2 {
+  bottom: 0;
+  right: 0;
+  width: 45vw;
+}
+
+/* ========= FONDO DECORATIVO DEL CARRITO ========= */
+.cart-deco {
+  position: absolute;
+  bottom: 14px;
+  right: 14px;
+  width: 320px;    /* ← hazlo más grande aquí */
+  height: auto;
+  opacity: 0.52;
+  pointer-events: none;
+  filter: grayscale(40%) contrast(140%);
+  z-index: 0;
+}
+.plate-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;  /* la imagen se recorta pero queda hermosa */
+  border-radius: 12px;
+  opacity: 0.95;      /* opción para darle vibe */
+  filter: contrast(110%) brightness(95%);
+}
+
+/* GRID DEL PORTAFOLIO */
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 22px;
+  margin-top: 60px;
+  position: relative;
+  z-index: 2;
+}
+
+/* CADA PROYECTO */
+.project {
+  position: relative;
+  height: 260px;
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  transition: transform .28s ease, filter .28s ease, box-shadow .28s ease;
+  filter: grayscale(40%) contrast(110%);
+}
+
+/* TEXTO DEL PROYECTO */
+.project .meta {
+  background: rgba(0,0,0,0.38);
+  backdrop-filter: blur(4px);
+  color: #fff;
+  font-size: 1rem;
+  padding: 8px 14px;
+  border-radius: 6px;
+  margin: 16px;
+  z-index: 2;
+}
+
+/* HOVER */
+.project:hover {
+  transform: scale(1.03);
+  filter: grayscale(10%) contrast(120%);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.3);
+}
+.product {
+  background: rgba(255,255,255,0.05);
+  padding: 18px;
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.06);
+  transition: .28s ease;
+}
+
+.product:hover {
+  transform: translateY(-6px);
+}
+
+.prod-img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  filter: grayscale(30%) contrast(110%);
+  transition: .25s ease;
+}
+.cart-thumb {
+  width: 64px;
+  height: 64px;
+  border-radius: 10px;
+  object-fit: cover;
+  filter: grayscale(30%) contrast(110%);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+
+.product:hover .prod-img {
+  filter: grayscale(0%) contrast(120%);
+}
+.logo-img {
+  width: 120px;     /* puedes hacerlo más grande */
+  height: auto;
+  filter: grayscale(20%) contrast(120%);
+  opacity: 0.9;
+  transition: .3s ease;
+}
+
+.logo-img:hover {
+  opacity: 1;
+  filter: grayscale(0%) contrast(130%);
+}
+
+  </style>
+</head>
+<body>
+<img src="fondo1.png" class="bg-deco deco-1">
+<img src="fondo2.png" class="bg-deco deco-2">
+
+  <!-- Corner ornament SVGs (Angel-Industrial: wings + gears + filigree) -->
+  <svg class="corner corner-tl" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <linearGradient id="gA" x1="0" x2="1">
+        <stop offset="0" stop-color="#dfe7eb"/><stop offset="1" stop-color="#9aa6b2"/>
+      </linearGradient>
+    </defs>
+    <g fill="none" stroke="url(#gA)" stroke-width="1">
+      <!-- filigree -->
+      <path d="M12 220 C 40 180, 120 140, 200 130" stroke-opacity="0.45"/>
+      <path d="M10 260 C 60 210, 140 170, 260 150" stroke-opacity="0.28"/>
+      <!-- wing -->
+      <path d="M38 40 C 90 24, 140 60, 180 92 C 200 108, 220 132, 240 156" stroke-opacity="0.9"/>
+      <!-- gear -->
+      <g transform="translate(200,30) scale(0.9)" stroke-opacity="0.85">
+        <circle cx="0" cy="0" r="22" />
+        <path d="M -36 0 L -28 -8 M -36 0 L -28 8 M 36 0 L 28 -8 M 36 0 L 28 8" />
+      </g>
+    </g>
+  </svg>
+
+  <svg class="corner corner-tr" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs><linearGradient id="gB" x1="0" x2="1"><stop offset="0" stop-color="#eef2f4"/><stop offset="1" stop-color="#bfc9cf"/></linearGradient></defs>
+    <g fill="none" stroke="url(#gB)" stroke-width="1">
+      <path d="M260 220 C 220 180, 140 140, 60 130" stroke-opacity="0.45"/>
+      <path d="M250 260 C 200 210, 120 170, 40 150" stroke-opacity="0.28"/>
+      <path d="M282 48 C 230 28, 180 64, 140 96 C 120 112, 100 136, 80 160" stroke-opacity="0.9"/>
+      <g transform="translate(80,30) scale(0.9)" stroke-opacity="0.85">
+        <circle cx="0" cy="0" r="22" />
+        <path d="M -36 0 L -28 -8 M -36 0 L -28 8 M 36 0 L 28 -8 M 36 0 L 28 8" />
+      </g>
+    </g>
+  </svg>
+
+  <svg class="corner corner-bl" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs><linearGradient id="gC" x1="0" x2="1"><stop offset="0" stop-color="#e6eaec"/><stop offset="1" stop-color="#b9c3c8"/></linearGradient></defs>
+    <g fill="none" stroke="url(#gC)" stroke-width="1">
+      <path d="M18 60 C 60 100, 140 140, 220 150" stroke-opacity="0.35"/>
+      <path d="M12 100 C 70 140, 150 180, 260 200" stroke-opacity="0.22"/>
+      <path d="M46 230 C 96 220, 146 180, 196 152" stroke-opacity="0.85"/>
+      <g transform="translate(40,200) scale(0.85)" stroke-opacity="0.78">
+        <circle cx="0" cy="0" r="18" />
+      </g>
+    </g>
+  </svg>
+
+  <svg class="corner corner-br" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs><linearGradient id="gD" x1="0" x2="1"><stop offset="0" stop-color="#eceff1"/><stop offset="1" stop-color="#c0c8cd"/></linearGradient></defs>
+    <g fill="none" stroke="url(#gD)" stroke-width="1">
+      <path d="M300 60 C 260 100, 180 140, 100 150" stroke-opacity="0.35"/>
+      <path d="M310 100 C 250 140, 170 180, 60 200" stroke-opacity="0.22"/>
+      <path d="M280 230 C 230 220, 170 180, 120 152" stroke-opacity="0.85"/>
+      <g transform="translate(240,200) scale(0.85)" stroke-opacity="0.78">
+        <circle cx="0" cy="0" r="18" />
+      </g>
+    </g>
+  </svg>
+
+  <!-- PAGE -->
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo">
+            <img src="tu-logo.png" style="width:100%;height:100%;object-fit:cover;border-radius:10px;">
+        </div>
+        <div>
+          <h1>H0LIC</h1>
+          <p>Creamos identidad, diseñamos experiencias</p>
+        </div>
+      </div>
+
+      <nav>
+        <ul>
+          <li><a href="#home">Inicio</a></li>
+          <li><a href="#portfolio">Portafolio</a></li>
+          <li><a href="#services">Servicios</a></li>
+          <li><a href="#shop">Merch</a></li>
+          <li><a href="#about">Sobre</a></li>
+          <li><a href="#contact">Contacto</a></li>
+        </ul>
+      </nav>
+
+      <div style="display:flex;gap:12px;align-items:center">
+        <button class="cart-btn" id="open-cart" title="Carrito">🛒 <span id="cartCount" class="cart-count" style="display:none">0</span></button>
+        <a href="#contact" class="cta">Trabaja con nosotros</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="home" class="container hero">
+      <div class="hero-left">
+        <span class="eyebrow">Estudio creativo · H0LIC ✦</span>
+        <h2 class="kicker">Diseño que transforma ideas en piezas memorables.</h2>
+        <p class="lead">En H0LIC creamos identidades visuales, merch, fotografía y piezas editoriales que se sienten únicas, modernas y listas para convertirse en tus mejores herramientas de marca. Nuestro enfoque mezcla estética gráfica, creatividad y producción.</p>
+        <div class="actions">
+          <a class="cta" href="#portfolio">Ver portafolio</a>
+          <a class="ornament-label" href="#services">Colecciones & Servicios</a>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="altar" id="altar">
+          <div class="plate"><div class="plate">
+  <img src="tu-logo.png" alt="Holic plate" class="plate-img">
+</div>
+</div>
+          <div class="halo-ring" aria-hidden="true"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="container">
+      <h2>¿Qué es H0LIC?</h2>
+      <p class="lead-muted">H0LIC es un estudio creativo especializado en branding, diseño editorial, merch, fotografía y productos gráficos. Nuestro objetivo es transformar ideas en productos físicos, experiencias visuales y colecciones con estilo propio.
+
+Trabajamos desde lo conceptual hasta lo tangible: desde el logotipo y la narrativa visual, hasta las playeras, fanzines, pines, posters o tatuajes temporales que representarán tu marca.</p>
+      <div style="display:flex;gap:20px;margin-top:18px;flex-wrap:wrap">
+        <div style="flex:1;min-width:240px">
+          <h3>Misión</h3>
+          <p class="muted">Crear identidades visuales auténticas, funcionales y estéticamente potentes que ayuden a personas, negocios y marcas a conectar con sus audiencias.</p>
+        </div>
+        <div style="flex:1;min-width:240px">
+          <h3>Visión</h3>
+          <p class="muted">Ser un estudio creativo reconocido a nivel nacional por su innovación visual, calidad estética y aportes al diseño contemporáneo</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="container">
+      <h2>Servicios</h2>
+      <p class="lead-muted">Ofrecemos servicios integrados pensados para marcas que buscan identidad, narrativa y producto físico de calidad.</p>
+      <div class="grid">
+        <article class="card"><h3>Branding & Identidad</h3><p>Diseñamos logotipos, paletas, tipografías, manuales y kits completos para emprendedores. Creamos marcas funcionales, estéticas y listas para usar en digital y físico.</p></article>
+        <article class="card"><h3>Diseño Editorial</h3><p>Posters, prints, revistas pequeñas, fanzines, cuadernillos, agendas y catálogos. Todo con estilo visual coherente y bien producido.</p></article>
+        <article class="card"><h3>Fotografía & Producción</h3><p>Fotografía de producto para negocios y fotografía artística para prints, posters y merch. Estilo atmosférico y estético.</p></article>
+        <article class="card"><h3>Serigrafía & Merch</h3><p>Playeras, sudaderas, tote bags, gorras, pines, stickers, llaveros y parches. Ediciones limitadas y producción bajo pedido.</p></article>
+        <article class="card"><h3>Tatuajes Temporales</h3><p>Sets de tatuajes temporales personalizados y temáticos. Perfectos para colecciones, eventos y drops especiales.</p></article>
+        <article class="card"><h3>Consultoría</h3><p>Acompañamiento visual para emprendedores y marcas que buscan dirección de arte, estética y estrategia gráfica</p></article>
+      </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section id="portfolio" class="container">
+      <h2>Portafolio</h2>
+      <p class="lead-muted"> identidades, publicaciones y producción para marcas independientes.</p>
+      <section id="portfolio" class="portfolio-grid">
+
+  <a class="project" 
+     style="background-image:url('Lila Studio.jpeg')" 
+     data-title="Branding — Lila Studio" 
+     data-desc="Identidad visual + packaging">
+    <div class="meta">Lila Studio</div>
+  </a>
+
+  <a class="project" 
+     style="background-image:url('Fanzine RUTA.jpeg')" 
+     data-title="Fanzine — RUTA" 
+     data-desc="Editorial, ilustración y maquetación">
+    <div class="meta">Fanzine RUTA</div>
+  </a>
+
+  <a class="project" 
+     style="background-image:url('Drop 01.jpeg')" 
+     data-title="Drop 01 — Merch" 
+     data-desc="Playeras, serigrafía y concepto estético">
+    <div class="meta">Drop 01</div>
+  </a>
+
+  <a class="project" 
+     style="background-image:url('Producto.jpeg')" 
+     data-title="Fotografía de Producto" 
+     data-desc="Estilo estético + dirección de arte">
+    <div class="meta">Producto</div>
+  </a>
+
+  <a class="project" 
+     style="background-image:url('Atelier.jpeg')" 
+     data-title="Editorial — Colección ‘Atelier’" 
+     data-desc="Diseño editorial + mockups profesionales">
+    <div class="meta">Atelier</div>
+  </a>
+
+  <a class="project" 
+     style="background-image:url('Merch.jpeg')" 
+     data-title="Merch Fotográfico" 
+     data-desc="Playeras con fotografía artística">
+    <div class="meta">Foto Merch</div>
+  </a>
+
+</section>
+
+      </div>
+    </section>
+
+    <!-- SHOP -->
+    <section id="shop" class="container">
+      <h2>Merch — Tienda</h2>
+      <p class="lead-muted">Colección. El carrito es demo. Precios de ejemplo.</p>
+      <div class="shop-grid" id="shopGrid"></div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="container">
+      <h2>Contacto</h2>
+      <p class="lead-muted">hola@holic.studio · Monterrey, NL</p>
+      <div style="display:flex;gap:20px;margin-top:18px">
+        <form id="contactForm" style="flex:1;display:flex;flex-direction:column;gap:10px">
+          <input name="name" placeholder="Nombre" required style="padding:10px;border-radius:8px;border:1px solid rgba(0,0,0,0.06);background:white;color:var(--charcoal)">
+          <input name="email" placeholder="Correo" required style="padding:10px;border-radius:8px;border:1px solid rgba(0,0,0,0.06);background:white;color:var(--charcoal)">
+          <textarea name="message" placeholder="Mensaje" rows="4" style="padding:10px;border-radius:8px;border:1px solid rgba(0,0,0,0.06);background:white;color:var(--charcoal)"></textarea>
+          <div style="display:flex;gap:8px">
+            <button class="cta" type="submit">Enviar</button>
+            <button type="reset" class="ornament-label">Limpiar</button>
+          </div>
+          <div id="contactMsg" style="color:var(--iron-dark);font-size:13px"></div>
+        </form>
+        <div style="flex:0.9">
+          <h3 style="margin-top:0">Información</h3>
+          <p class="muted">hola@holic.studio<br>Monterrey, NL</p>
+          <div style="margin-top:12px"><h4 style="margin:0">Horario</h4><p class="muted" style="margin:0">Lun - Vie · 10:00 - 18:00</p></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- CART OFFCANVAS -->
+  <aside id="cartOff" class="offcanvas" aria-hidden="true">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <h3>Carrito · ✦</h3>
+      <button id="closeCart" style="background:transparent;border:0;color:var(--iron-dark);cursor:pointer">Cerrar ✕</button>
+    </div>
+    <div class="divider"></div>
+    <div class="cart-list" id="cartList"></div>
+    <div class="divider"></div>
+    <div class="total-row">
+      <div class="muted">Total</div>
+      <div id="cartTotal" style="font-weight:800;color:var(--blue-steel)">$0.00</div>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:12px">
+      <button id="checkoutBtn" class="checkout" style="flex:1">Proceder a pagar</button>
+      <button id="clearCart" class="ornament-label">Vaciar</button>
+    </div>
+    <div style="margin-top:12px;color:var(--iron-dark);font-size:13px"></div>
+    <img src="carrito-fondo.png" class="cart-deco">
+  </aside>
+
+  <!-- PORTFOLIO MODAL -->
+  <div id="modal" class="modal" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true">
+      <button class="modal-close" id="closeModal">✕</button>
+      <h3 id="modalTitle" style="font-family:Playfair Display, serif;color:var(--charcoal)"></h3>
+      <p id="modalDesc" class="muted"></p>
+      <img id="modalImg" src="" alt="Preview" style="width:100%;border-radius:8px;margin-top:12px"/>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container foot-grid">
+      <div style="display:flex;gap:10px;align-items:center">
+        <div class="logo">
+  <img src="tu-logo.png" alt="Holic Logo" class="logo-img">
+</div>
+
+        <div><strong style="color:var(--charcoal)">H0LIC</strong><br><span class="small-muted">Dark Angel Industrial</span></div>
+      </div>
+      <div class="small-muted">© <span id="year"></span> H0LIC · Todos los derechos</div>
+      <div class="small-muted">✦ ✧ ❖</div>
+    </div>
+  </footer>
+<audio id="bg-music" autoplay loop>
+  <source src="Debussy - Clair de Lune.mp3" type="audio/mpeg">
+</audio>
+<script>
+window.addEventListener("click", () => {
+  const music = document.getElementById("bg-music");
+  music.play().catch(() => {});
+}, { once: true });</script>
+  <!-- SCRIPTS -->
+  <script>
+  /* =====================
+     PRODUCTS DATA
+     ===================== */
+  const PRODUCTS = [
+  { 
+    id:'p1', 
+    title:'Playera H0LIC — Lila', 
+    price:420, 
+    sku:'TSH-LIL-01', 
+    desc:'Playera algodón. Serigrafía, edición limitada.',
+    img:'playera.jpeg'        // ← CAMBIA ESTE NOMBRE
+  },
+
+  { 
+    id:'p2', 
+    title:'Poster — H0LIC Series', 
+    price:280, 
+    sku:'POST-01', 
+    desc:'Poster 30x40cm, impresión fine-art.',
+    img:'poster.jpeg'         // ← CAMBIA ESTE NOMBRE
+  },
+
+  { 
+    id:'p3', 
+    title:'Sticker Pack', 
+    price:120, 
+    sku:'STK-01', 
+    desc:'Set de 6 stickers laminados.',
+    img:'stickers.jpeg'       // ← CAMBIA ESTE NOMBRE
+  },
+
+  { 
+    id:'p4', 
+    title:'Hoodie — Drop 01', 
+    price:950, 
+    sku:'HOD-01', 
+    desc:'Sudadera algodón premium con estampado.',
+    img:'hoodie.jpeg'         // ← CAMBIA ESTE NOMBRE
+  },
+
+  { 
+    id:'p5', 
+    title:'Tatuajes temporales — Pack', 
+    price:90, 
+    sku:'TAT-01', 
+    desc:'Edición temporada.',
+    img:'tatuajes.jpeg'       // ← CAMBIA ESTE NOMBRE
+  },
+
+  { 
+    id:'p6', 
+    title:'Postales (set 5)', 
+    price:150, 
+    sku:'POS-01', 
+    desc:'Set de 5 postales art prints.',
+    img:'postales.jpeg'       // ← CAMBIA ESTE NOMBRE
+  }
+];
+
+  
+
+  /* =====================
+     UTILITIES
+     ===================== */
+  const formatMXN = v => '$' + v.toFixed(2);
+  const SHOP = document.getElementById('shopGrid');
+  const CART_KEY = 'holic_cart_v_industrial';
+  let CART = JSON.parse(localStorage.getItem(CART_KEY) || '[]');
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  /* =====================
+     RENDER SHOP
+     ===================== */
+  function renderShop(){
+    SHOP.innerHTML = '';
+    PRODUCTS.forEach(p=>{
+      const el = document.createElement('article');
+      el.className = 'product';
+      el.innerHTML = `
+  <img src="${p.img}" class="prod-img">
+
+  <div style="display:flex;justify-content:space-between;align-items:center">
+    <h4 style="margin:0;color:var(--charcoal)">${p.title}</h4>
+    <div style="font-weight:700;color:var(--blue-steel)">${formatMXN(p.price)}</div>
+  </div>
+
+  <div class="tagline muted" style="font-size:13px">${p.desc}</div>
+
+  <div style="display:flex;gap:8px;margin-top:auto">
+    <button class="add-btn" data-id="${p.id}" style="padding:10px 12px;border-radius:10px;background:linear-gradient(90deg,var(--blue-steel),var(--accent-2));border:0;color:white;font-weight:700">Agregar</button>
+    <button class="view-btn" data-id="${p.id}" style="padding:10px 12px;border-radius:10px;border:1px solid rgba(0,0,0,0.06)">Ver</button>
+  </div>
+`;
+
+      SHOP.appendChild(el);
+    });
+    document.querySelectorAll('.add-btn').forEach(b=>b.addEventListener('click', e=>{
+      const id = e.currentTarget.dataset.id; addToCart(id,1); playAdd(); pulse(e.currentTarget);
+    }));
+    document.querySelectorAll('.view-btn').forEach(b=>b.addEventListener('click', e=>{
+      openProductModal(e.currentTarget.dataset.id);
+    }));
+  }
+
+  /* =====================
+     CART LOGIC (ENHANCED)
+     ===================== */
+  const cartBtn = document.getElementById('open-cart');
+  const cartCountEl = document.getElementById('cartCount');
+  const cartOff = document.getElementById('cartOff');
+  const cartList = document.getElementById('cartList');
+  const cartTotalEl = document.getElementById('cartTotal');
+  const closeCart = document.getElementById('closeCart');
+  const clearCartBtn = document.getElementById('clearCart');
+  const checkoutBtn = document.getElementById('checkoutBtn');
+
+  function saveCart(){ localStorage.setItem(CART_KEY, JSON.stringify(CART)); renderCartUI(); }
+  function addToCart(id, qty=1){
+    const product = PRODUCTS.find(p=>p.id===id);
+    if(!product) return;
+    const found = CART.find(i=>i.id===id);
+    if(found) found.qty += qty; else CART.push({ id:product.id, title:product.title, price:product.price, qty });
+    saveCart(); animateCartOpen(); flashCount(); playTone(540,0.06,0.02);
+  }
+  function setQty(id, q){
+    const it = CART.find(i=>i.id===id);
+    if(!it) return;
+    it.qty = Math.max(0, q);
+    if(it.qty === 0) CART = CART.filter(x=>x.id!==id);
+    saveCart();
+  }
+  function removeItem(id){ CART = CART.filter(i=>i.id!==id); saveCart(); playTone(320,0.06,0.02); }
+  function clearCart(){ CART = []; saveCart(); playTone(220,0.12,0.03); }
+  function cartTotal(){ return CART.reduce((s,i)=>s + i.price * i.qty, 0); }
+
+  function renderCartUI(){
+    cartList.innerHTML = '';
+    if(CART.length === 0){
+      cartList.innerHTML = '<div class="muted">Tu carrito está vacío. Agrega productos desde la tienda.</div>';
+    } else {
+      CART.forEach(item=>{
+        const node = document.createElement('div');
+        node.className = 'cart-item';
+        node.innerHTML = 
+        `<img src="${PRODUCTS.find(p => p.id === item.id).img}" class="cart-thumb">
+
+          <div class="item-info">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div style="font-weight:700;color:var(--charcoal)">${item.title}</div>
+              <div style="color:var(--iron-dark)">${formatMXN(item.price)}</div>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px">
+              <div class="qty">
+                <button data-action="dec" data-id="${item.id}">-</button>
+                <div style="padding:6px 10px;border-radius:8px;background:rgba(0,0,0,0.02)">${item.qty}</div>
+                <button data-action="inc" data-id="${item.id}">+</button>
+              </div>
+              <button class="remove" data-id="${item.id}">Eliminar</button>
+            </div>
+          </div>
+        `;
+        cartList.appendChild(node);
+      });
+    }
+    cartTotalEl.textContent = formatMXN(cartTotal());
+    cartCountEl.style.display = CART.length ? 'inline-block' : 'none';
+    cartCountEl.textContent = CART.reduce((s,i)=>s+i.qty,0);
+
+    // attach actions
+    cartList.querySelectorAll('button').forEach(b=>{
+      const action = b.dataset.action;
+      const id = b.dataset.id;
+      if(action === 'inc') b.onclick = ()=>{ setQty(id, (CART.find(x=>x.id===id).qty)+1); playTone(720,0.04,0.013); };
+      if(action === 'dec') b.onclick = ()=>{ setQty(id, Math.max(0, (CART.find(x=>x.id===id).qty)-1)); playTone(360,0.04,0.013); };
+      if(b.classList.contains('remove')) b.onclick = ()=> removeItem(id);
+    });
+  }
+
+  function animateCartOpen(){
+    cartOff.classList.add('open');
+    cartOff.setAttribute('aria-hidden','false');
+    // halo pulse
+    const halo = document.createElement('div');
+    halo.style.position='fixed'; halo.style.right='40px'; halo.style.top='40px';
+    halo.style.width='320px'; halo.style.height='320px'; halo.style.borderRadius='50%';
+    halo.style.background='radial-gradient(circle at 30% 30%, rgba(122,160,200,0.12), transparent 30%), radial-gradient(circle at 70% 70%, rgba(106,140,170,0.06), transparent 35%)';
+    halo.style.zIndex=140; halo.style.pointerEvents='none'; halo.style.opacity='0';
+    document.body.appendChild(halo);
+    halo.animate([{opacity:0},{opacity:1},{opacity:0}],{duration:900});
+    setTimeout(()=> halo.remove(),920);
+  }
+
+  cartBtn.addEventListener('click', ()=>{ animateCartOpen(); renderCartUI(); });
+  closeCart.addEventListener('click', ()=>{ cartOff.classList.remove('open'); cartOff.setAttribute('aria-hidden','true'); });
+  clearCartBtn.addEventListener('click', ()=>{ if(confirm('¿Vaciar carrito?')) clearCart(); });
+
+  checkoutBtn.addEventListener('click', ()=>{
+    if(CART.length === 0){ alert('Tu carrito está vacío.'); return; }
+    const total = cartTotal();
+    const name = prompt(`Total a pagar: ${formatMXN(total)}\nIngresa tu nombre para simular el pago:`);
+    if(name){ alert(`Gracias ${name}! Pago simulado por ${formatMXN(total)}. Tu orden ha sido registrada (demo).`); clearCart(); cartOff.classList.remove('open'); }
+  });
+
+  /* =====================
+     MODAL (PROJECT PREVIEW)
+     ===================== */
+  const modal = document.getElementById('modal');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalDesc = document.getElementById('modalDesc');
+  const modalImg = document.getElementById('modalImg');
+  const closeModal = document.getElementById('closeModal');
+
+  function openProductModal(id){
+    const p = PRODUCTS.find(x=>x.id===id);
+    if(!p) return;
+    modalTitle.textContent = p.title;
+    modalDesc.textContent = p.desc + ' · SKU: ' + p.sku + ' · ' + formatMXN(p.price);
+    modalImg.src = p.img;
+
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden','false');
+  }
+  closeModal.addEventListener('click', ()=>{ modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); });
+  modal.addEventListener('click', (e)=> { if(e.target === modal) { modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); } });
+
+  document.querySelectorAll('.project').forEach((el, idx)=>{
+    el.addEventListener('click', ()=>{
+      const id = PRODUCTS[idx % PRODUCTS.length].id;
+      openProductModal(id);
+    });
+  });
+
+  /* =====================
+     CONTACT FORM (SIMULATED)
+     ===================== */
+  const contactForm = document.getElementById('contactForm');
+  const contactMsg = document.getElementById('contactMsg');
+  contactForm.addEventListener('submit', (e)=>{
+    e.preventDefault();
+    contactMsg.textContent = 'Enviando...';
+    setTimeout(()=>{ contactMsg.textContent = 'Mensaje enviado. Gracias — te responderemos en 48 hrs.'; contactForm.reset(); }, 900);
+  });
+
+  /* =====================
+     AUDIO (micro-sounds)
+     ===================== */
+  const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  function playTone(freq=440, dur=0.06, vol=0.02){
+    try {
+      const o = audioCtx.createOscillator(); const g = audioCtx.createGain();
+      o.type = 'sine'; o.frequency.value = freq; g.gain.value = vol;
+      o.connect(g); g.connect(audioCtx.destination);
+      o.start(); o.stop(audioCtx.currentTime + dur);
+    } catch(e){}
+  }
+  function playAdd(){ playTone(520,0.07,0.02); playTone(860,0.04,0.008); }
+  function playClick(){ playTone(720,0.04,0.012); }
+
+  function flashCount(){ cartCountEl.animate([{transform:'scale(1)'},{transform:'scale(1.25)'},{transform:'scale(1)'}],{duration:300}); }
+  function pulse(el){ el.animate([{transform:'scale(1)'},{transform:'scale(0.96)'},{transform:'scale(1)'}],{duration:200}); }
+
+  /* =====================
+     HALO ON ALTAR (toggle)
+     ===================== */
+  const altar = document.getElementById('altar');
+  altar.addEventListener('mouseenter', ()=>{ altar.classList.add('halo'); });
+  altar.addEventListener('mouseleave', ()=>{ altar.classList.remove('halo'); });
+
+  /* INIT */
+  function init(){
+    renderShop();
+    renderCartUI();
+  }
+  window.addEventListener('beforeunload', ()=> localStorage.setItem(CART_KEY, JSON.stringify(CART)));
+  init();
+
+  // Smooth anchor scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click', function(ev){
+      const href = this.getAttribute('href');
+      if(!href || href === '#') return;
+      const el = document.querySelector(href);
+      if(el){ ev.preventDefault(); el.scrollIntoView({behavior:'smooth', block:'start'}); }
+    });
+  });
+<audio id=“bg-music” autoplay loop>
+<source src="Debussy - Clair de Lune.mp3” type="audio/mpeg”
+</audio>
+  </script>
+</body>
+</html>
+
+
+
+
+
+
